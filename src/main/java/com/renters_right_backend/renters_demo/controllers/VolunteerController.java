@@ -18,7 +18,7 @@ public class VolunteerController {
         this.repository = repository;
     }
 
-    @GetMapping(path="/")
+    @GetMapping(path="/volunteers")
     List<Volunteer> all(){
         return repository.findAll();
     }

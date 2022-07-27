@@ -15,19 +15,14 @@ public class Volunteer {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id; 
-
     private String name;
-
     private String type;
-
     private String email; 
-
     private String schedule;
-
     private String status; 
-
     private String language; 
 
+    public Volunteer() {}
 
     public Volunteer(
         Integer id, 
@@ -49,9 +44,6 @@ public class Volunteer {
             this.language = language;
 
         }
-
-
-
 
     public Integer getId(){
         return id;

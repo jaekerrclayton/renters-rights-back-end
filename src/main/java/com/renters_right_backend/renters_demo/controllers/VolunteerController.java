@@ -12,14 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+// decide if we want this our starting endpoint!
 @RequestMapping("/admin")
 public class VolunteerController {
 
@@ -42,7 +43,7 @@ public class VolunteerController {
     }
 
 
-    @PostMapping("/create-volunteer")
+    @PostMapping("/volunteers")
     public Volunteer createVolunteer(@RequestBody Volunteer volunteer) {
 
         Volunteer savedVolunteer= volunteerRepository.save(volunteer);
@@ -51,12 +52,13 @@ public class VolunteerController {
     }
 
 
-    @PutMapping("/volunteers/{id}")
-    public ResponseEntity<Volunteer> updateEmployee(@PathVariable(value = "id") Integer volunteerId,
+    @PatchMapping("/volunteers/{id}")
+    public ResponseEntity<Volunteer> updateVolunteer(@PathVariable(value = "id") Integer volunteerId,
                                                          @RequestBody Volunteer volunteerDetails) {
         Volunteer volunteer = volunteerRepository.findById(volunteerId).get();
 
         volunteer.setStatus(volunteerDetails.getStatus());
+        // want to allow patch without impacting the schedule !! 
         volunteer.setSchedule(volunteerDetails.getSchedule());
         final Volunteer updatedVolunteer = volunteerRepository.save(volunteer);
         return ResponseEntity.ok(updatedVolunteer);
@@ -69,6 +71,7 @@ public class VolunteerController {
 
         volunteerRepository.delete(volunteer);
         Map<String, Boolean> response = new HashMap<>();
+        // make usr id show up (or maybe just all of the user info that u just deleted ?)
         response.put("deleted {id}", Boolean.TRUE);
         return response;
     }

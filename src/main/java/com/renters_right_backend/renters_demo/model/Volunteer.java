@@ -39,6 +39,8 @@ public class Volunteer {
       // **** SOME WAY TO SRT BY TYPE : maybe list?? 
     @Column(name = "type")
     private String type;
+
+    public Volunteer(){};
   
 
 
@@ -109,6 +111,7 @@ public class Volunteer {
         this.status = status;
     }
 
+// do we need this ??
 
     @Override
     public String toString() {

@@ -7,9 +7,9 @@ import java.util.Optional;
 import com.renters_right_backend.renters_demo.model.Volunteer;
 import com.renters_right_backend.renters_demo.repositories.VolunteerRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+// import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +41,7 @@ public class VolunteerController {
     @GetMapping("/volunteers/{id}")
     Optional<Volunteer> one(@PathVariable Integer id) {
 
-        return repository.findById(id)
+        return repository.findById(id);
     }
     
 }

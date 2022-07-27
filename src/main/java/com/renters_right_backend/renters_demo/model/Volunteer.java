@@ -2,6 +2,7 @@ package com.renters_right_backend.renters_demo.model;
 
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,24 +14,40 @@ import javax.persistence.Table;
 public class Volunteer {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id; 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer volunteerId;
 
+    @Column(name = "name", nullable=false)
     private String name;
 
-    private String type;
 
+    @Column(name = "email", nullable = false)
     private String email; 
 
+    @Column(name = "schedule")
     private String schedule;
 
+
+    @Column(name = "status")
     private String status; 
 
+
+    @Column(name = "language")
     private String language; 
 
 
+      // **** SOME WAY TO SRT BY TYPE : maybe list?? 
+    @Column(name = "type")
+    private String type;
+
+    public Volunteer(){};
+  
+
+
+
+
     public Volunteer(
-        Integer id, 
+        Integer volunteerId, 
         String name, 
         String type, 
         String email, 
@@ -40,7 +57,7 @@ public class Volunteer {
         
         {
 
-            this.id = id;
+            this.volunteerId = volunteerId;
             this.name = name; 
             this.type = type;
             this.email= email;
@@ -53,8 +70,8 @@ public class Volunteer {
 
 
 
-    public Integer getId(){
-        return id;
+    public Integer getVolunteerId(){
+        return volunteerId;
     }
 
     public String getName(){
@@ -81,6 +98,10 @@ public class Volunteer {
         return schedule;
     }
 
+    public void setSchedule(String schedule){
+        this.schedule = schedule;
+    }
+
 
     public String getStatus(){
         return status;
@@ -89,6 +110,18 @@ public class Volunteer {
     public void setStatus(String status){
         this.status = status;
     }
+
+// do we need this ??
+
+    @Override
+    public String toString() {
+        return "Volunteer [volunteerId=" + volunteerId + ", name=" + name + ", email=" + email
+                + ", status=" + status + ", schedule=" + schedule + ", type=" + type + ", language=" + language + "]";
+    }
+
+
+}
+
 
 
 
@@ -123,8 +156,5 @@ public class Volunteer {
 
 
 
-
-
-
     
-}
+

@@ -1,7 +1,5 @@
 package com.renters_right_backend.renters_demo.model;
 
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -81,42 +79,5 @@ public class Volunteer {
     public void setStatus(String status){
         this.status = status;
     }
-
-
-
-
-
-
-
-    
-
-
-    
-
-
-
-   /*
-   sched times : morn afternoon evening 
-   day: m, t, w, tr, fr, sat, sun 
-   
-   {day : shift}*/
-
-
-    
-
-//    @Override
-//     public int hashCode() {
-//         int hash = 7;
-//         hash = 79 * hash + Objects.hashCode(this.id);
-//         hash = 79 * hash + Objects.hashCode(this.name);
-//         hash = 79 * hash + this.population;
-//         return hash;
-//     }
-
-
-
-
-
-
     
 }

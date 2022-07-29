@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,27 +18,34 @@ public class Volunteer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "name", nullable=false)
+    @NotEmpty(message = "The name is required.")
     private String name;
 
-    @NotEmpty(message = "The email address is required")
     @Email(message = "The email address is ivalid.")
     private String email; 
 
+    @NotNull(message = "A schedule key must be present even if empty.")
     private String schedule;
-    private String status; 
-    private String language; 
+
+    private String status;
+
+    @NotNull(message = "A language key must be present even if empty.")
+    private String language;
+
+    @NotEmpty(message = "Type of volunteer is required information.")
     private String type;
 
 
-    public Volunteer(){};
+    public Volunteer(){
+        this.status = "offline";
+    };
 
     public Volunteer(
         Integer id, 
         String name, 
         String type, 
         String email, 
-        String schedule, 
+        String schedule,
         String status, 
         String language)
         {

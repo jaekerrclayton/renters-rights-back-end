@@ -80,4 +80,7 @@ public class Volunteer {
         this.status = status;
     }
     
+    public void setSchedule(String schedule){
+        this.schedule = schedule;
+    }
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import com.renters_right_backend.renters_demo.model.Volunteer;
 import com.renters_right_backend.renters_demo.repositories.VolunteerRepository;
 
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-// decide if we want this our starting endpoint!
 @RequestMapping("/admin")
 public class VolunteerController {
 
@@ -35,26 +36,20 @@ public class VolunteerController {
 
     @GetMapping("/volunteers/{id}")
     public Volunteer getVolunteerbyId(@PathVariable(value = "id") Integer volunteerId)
-
     {
         Volunteer volunteer = volunteerRepository.findById(volunteerId).get();
-
         return volunteer;
     }
 
-
     @PostMapping("/volunteers")
-    public Volunteer createVolunteer(@RequestBody Volunteer volunteer) {
-
+    public Volunteer createVolunteer(@Valid @RequestBody Volunteer volunteer) {
         Volunteer savedVolunteer= volunteerRepository.save(volunteer);
-
         return savedVolunteer;
     }
 
-
     @PatchMapping("/volunteers/{id}")
     public ResponseEntity<Volunteer> updateVolunteer(@PathVariable(value = "id") Integer volunteerId,
-                                                         @RequestBody Volunteer volunteerDetails) {
+                                                        @RequestBody Volunteer volunteerDetails) {
         Volunteer volunteer = volunteerRepository.findById(volunteerId).get();
 
         volunteer.setStatus(volunteerDetails.getStatus());
@@ -75,25 +70,5 @@ public class VolunteerController {
         response.put("deleted {id}", Boolean.TRUE);
         return response;
     }
-
-
-
-
-
-
-
-
-
-    // private final VolunteerRepository repository;
-
-    // VolunteerController(VolunteerRepository repository){
-    //     this.repository = repository;
-    // }
-
-    // @GetMapping(path="/")
-    // List<Volunteer> all(){
-    //     return repository.findAll();
-    // }
-
     
 }

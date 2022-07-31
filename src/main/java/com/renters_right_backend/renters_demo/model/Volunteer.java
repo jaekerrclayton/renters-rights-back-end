@@ -1,12 +1,19 @@
 package com.renters_right_backend.renters_demo.model;
 
-
-
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Id;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -14,147 +21,83 @@ import javax.persistence.Table;
 public class Volunteer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer volunteerId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    @Column(name = "name", nullable=false)
+    @NotEmpty(message = "The name is required.")
     private String name;
 
-
-    @Column(name = "email", nullable = false)
+    @Email(message = "The email address is ivalid.")
     private String email; 
 
-    @Column(name = "schedule")
-    private String schedule;
+    @OneToOne(mappedBy= "volunteer", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = {"volunteerBySchedule", "handler", "hibernateLazyInitializer"}, allowSetters = true)
+    @PrimaryKeyJoinColumn
+    private Schedule schedule;
 
+    private String status;
 
-    @Column(name = "status")
-    private String status; 
+    @NotNull(message = "A language key must be present even if empty.")
+    private String language;
 
-
-    @Column(name = "language")
-    private String language; 
-
-
-      // **** SOME WAY TO SRT BY TYPE : maybe list?? 
-    @Column(name = "type")
+    @NotEmpty(message = "Type of volunteer is required information.")
     private String type;
 
-    public Volunteer(){};
-  
 
-
-
+    public Volunteer(){
+        this.status = "offline";
+    };
 
     public Volunteer(
-        Integer volunteerId, 
+        Integer id, 
         String name, 
         String type, 
         String email, 
-        String schedule, 
+        Schedule schedule,
         String status, 
         String language)
-        
         {
-
-            this.volunteerId = volunteerId;
+            this.id = id;
             this.name = name; 
             this.type = type;
             this.email= email;
             this.schedule = schedule;
             this.status  = status;
             this.language = language;
-
         }
 
 
-
-
     public Integer getVolunteerId(){
-        return volunteerId;
+        return id;
     }
-
     public String getName(){
         return name;
     }
-
-
     public String getType(){
         return type;
     }
-
-
     public String getEmail(){
         return email;
     }
-
-
     public String getLanguage(){
         return language;
     }
-
-
-    public String getSchedule(){
+    public Schedule getSchedule(){
         return schedule;
     }
-
-    public void setSchedule(String schedule){
+    public void setSchedule(Schedule schedule){
         this.schedule = schedule;
     }
-
-
     public String getStatus(){
         return status;
     }
-
     public void setStatus(String status){
         this.status = status;
     }
 
-// do we need this ??
-
     @Override
     public String toString() {
-        return "Volunteer [volunteerId=" + volunteerId + ", name=" + name + ", email=" + email
+        return "Volunteer [id=" + id + ", name=" + name + ", email=" + email
                 + ", status=" + status + ", schedule=" + schedule + ", type=" + type + ", language=" + language + "]";
     }
-
-
 }
-
-
-
-
-
-
-
-
-    
-
-
-    
-
-
-
-   /*
-   sched times : morn afternoon evening 
-   day: m, t, w, tr, fr, sat, sun 
-   
-   {day : shift}*/
-
-
-    
-
-//    @Override
-//     public int hashCode() {
-//         int hash = 7;
-//         hash = 79 * hash + Objects.hashCode(this.id);
-//         hash = 79 * hash + Objects.hashCode(this.name);
-//         hash = 79 * hash + this.population;
-//         return hash;
-//     }
-
-
-
-    
-

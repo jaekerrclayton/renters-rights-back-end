@@ -53,7 +53,6 @@ public class Volunteer {
         String type, 
         String email, 
         Schedule schedule,
-        String status, 
         String language)
         {
             this.id = id;
@@ -61,7 +60,6 @@ public class Volunteer {
             this.type = type;
             this.email= email;
             this.schedule = schedule;
-            this.status  = status;
             this.language = language;
         }
 
@@ -72,14 +70,26 @@ public class Volunteer {
     public String getName(){
         return name;
     }
+    public void setName(String name){
+        this.name = name;
+    }
     public String getType(){
         return type;
+    }
+    public void setType(String type){
+        this.type = type;
     }
     public String getEmail(){
         return email;
     }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getLanguage(){
         return language;
+    }
+    public void setLanguage(String language){
+        this.language = language;
     }
     public Schedule getSchedule(){
         return schedule;

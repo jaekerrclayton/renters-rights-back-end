@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,6 +58,18 @@ public class VolunteerController {
         volunteer.setStatus(volunteerDetails.getStatus());
         // want to allow patch without impacting the schedule !! 
         volunteer.setSchedule(volunteerDetails.getSchedule());
+        final Volunteer updatedVolunteer = volunteerRepository.save(volunteer);
+        return ResponseEntity.ok(updatedVolunteer);
+    }
+
+    @PutMapping("/volunteers/{id}")
+    public ResponseEntity<Volunteer> changeVolunteer(@PathVariable(value="id") Integer volunteerId, 
+                                                    @RequestBody Volunteer volunteerDetails) {
+        Volunteer volunteer = volunteerRepository.findById(volunteerId).get();
+        volunteer.setName(volunteerDetails.getName());
+        volunteer.setType(volunteerDetails.getType());
+        volunteer.setEmail(volunteerDetails.getEmail());
+        volunteer.setLanguage(volunteerDetails.getLanguage());
         final Volunteer updatedVolunteer = volunteerRepository.save(volunteer);
         return ResponseEntity.ok(updatedVolunteer);
     }
